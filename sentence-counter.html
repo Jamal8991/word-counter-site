@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Sentence Counter Online | Count Sentences Fast</title>
+  <meta
+    name="description"
+    content="Free sentence counter with instant sentence count, average sentence length, and long sentence warnings."
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="sentence-counter">
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav">
+        <a class="logo" href="index.html">TextTools</a>
+        <div class="nav-links">
+          <a href="index.html">Word Counter</a>
+          <a href="character-counter.html">Character Counter</a>
+          <a href="sentence-counter.html" class="active">Sentence Counter</a>
+          <a href="reading-time.html">Reading Time</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="eyebrow">Free online text tool</span>
+      <h1>Sentence Counter</h1>
+      <p class="subtitle">
+        Count sentences instantly and get quick sentence clarity insights.
+      </p>
+    </section>
+
+    <section class="tool-card">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <span class="toolbar-label">Paste or type your text</span>
+        </div>
+        <div class="toolbar-right">
+          <button id="copyBtn" class="btn secondary" type="button">Copy Text</button>
+          <button id="clearBtn" class="btn" type="button">Clear</button>
+        </div>
+      </div>
+
+      <label class="sr-only" for="textInput">Text input</label>
+      <textarea id="textInput" placeholder="Paste or type your text here..." autofocus></textarea>
+
+      <div class="stats-grid single-focus">
+        <div class="stat-box featured">
+          <span class="stat-label">Sentences</span>
+          <strong id="sentenceCount">0</strong>
+        </div>
+        <div class="stat-box featured">
+          <span class="stat-label">Avg. Sentence Length</span>
+          <strong id="avgSentenceLength">0</strong>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Words</span>
+          <strong id="wordCount">0</strong>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Paragraphs</span>
+          <strong id="paragraphCount">0</strong>
+        </div>
+      </div>
+
+      <section class="compact-insights">
+        <div class="insight-box">
+          <h2>Long Sentence Warning</h2>
+          <p id="longSentenceWarning">No long sentences detected yet.</p>
+        </div>
+
+        <div class="insight-box">
+          <h2>Sentence Length Note</h2>
+          <p id="sentenceLengthNote">Add some text to see sentence insights.</p>
+        </div>
+      </section>
+    </section>
+
+    <section class="content-block">
+      <h2>About this tool</h2>
+      <p>
+        This free sentence counter helps you count sentences in real time and
+        gives quick feedback about sentence length, which can improve readability.
+      </p>
+    </section>
+
+    <section class="content-block">
+      <h2>More text tools</h2>
+      <div class="internal-links">
+        <a href="index.html">Word Counter</a>
+        <a href="character-counter.html">Character Counter</a>
+        <a href="reading-time.html">Reading Time Calculator</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
