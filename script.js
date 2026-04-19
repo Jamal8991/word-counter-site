@@ -15,13 +15,12 @@ const longSentenceWarningEl = document.getElementById("longSentenceWarning");
 const topWordsListEl = document.getElementById("topWordsList");
 const sentenceLengthNoteEl = document.getElementById("sentenceLengthNote");
 
-// Common stopwords
 const STOPWORDS = new Set([
-  "a","an","and","are","as","at","be","but","by","for","from",
-  "has","have","he","her","his","i","if","in","is","it","its",
-  "me","my","of","on","or","our","she","so","that","the","their",
-  "them","there","they","this","to","was","we","were","will","with",
-  "you","your"
+  "a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "from",
+  "has", "have", "he", "her", "his", "i", "if", "in", "is", "it", "its",
+  "me", "my", "of", "on", "or", "our", "she", "so", "that", "the", "their",
+  "them", "there", "they", "this", "to", "was", "we", "were", "will", "with",
+  "you", "your"
 ]);
 
 function getWords(text) {
@@ -34,14 +33,14 @@ function getSentences(text) {
   return text
     .replace(/\n+/g, " ")
     .split(/[.!?]+/)
-    .map(s => s.trim())
+    .map(sentence => sentence.trim())
     .filter(Boolean);
 }
 
 function getParagraphs(text) {
   return text
     .split(/\n+/)
-    .map(p => p.trim())
+    .map(paragraph => paragraph.trim())
     .filter(Boolean);
 }
 
@@ -58,14 +57,14 @@ function cleanWord(word) {
 function getTopWords(words, limit = 6) {
   const counts = {};
 
-  words.forEach(raw => {
-    const word = cleanWord(raw);
+  words.forEach(rawWord => {
+    const word = cleanWord(rawWord);
     if (!word || STOPWORDS.has(word)) return;
     counts[word] = (counts[word] || 0) + 1;
   });
 
   return Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .slice(0, limit);
 }
 
@@ -86,7 +85,7 @@ function updateStats() {
   const speakingTime = wordCount / 130;
   const avgSentenceLength = sentenceCount ? wordCount / sentenceCount : 0;
 
-  const longSentences = sentences.filter(s => getWords(s).length > 20);
+  const longSentences = sentences.filter(sentence => getWords(sentence).length > 20);
   const topWords = getTopWords(words);
 
   if (wordCountEl) wordCountEl.textContent = wordCount;
@@ -98,7 +97,6 @@ function updateStats() {
   if (speakingTimeEl) speakingTimeEl.textContent = formatMinutes(speakingTime);
   if (avgSentenceLengthEl) avgSentenceLengthEl.textContent = avgSentenceLength.toFixed(1);
 
-  // Long sentence warning
   if (longSentenceWarningEl) {
     if (!text.trim()) {
       longSentenceWarningEl.textContent = "No long sentences detected yet.";
@@ -110,7 +108,6 @@ function updateStats() {
     }
   }
 
-  // Sentence length note
   if (sentenceLengthNoteEl) {
     if (!text.trim()) {
       sentenceLengthNoteEl.textContent = "Add some text to see insights.";
@@ -123,7 +120,6 @@ function updateStats() {
     }
   }
 
-  // Top words
   if (topWordsListEl) {
     topWordsListEl.innerHTML = "";
 
@@ -141,7 +137,6 @@ function updateStats() {
   }
 }
 
-// Event listeners
 if (textInput) {
   textInput.addEventListener("input", updateStats);
   updateStats();
