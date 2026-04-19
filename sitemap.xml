@@ -21,4 +21,8 @@
     <loc>https://word-counter-site.vercel.app/paragraph-counter.html</loc>
   </url>
 
+  <url>
+  <loc>https://word-counter-site.vercel.app/word-frequency-counter.html</loc>
+  </url>
+  
 </urlset>
