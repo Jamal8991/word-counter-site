@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y97GEP8268"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y97GEP8268"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y97GEP8268');
+  </script>
 
-  gtag('config', 'G-Y97GEP8268');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Free Character Counter Online | Count Characters Instantly</title>
@@ -37,7 +37,7 @@
   <main class="container">
     <section class="hero">
       <span class="eyebrow">Free online text tool</span>
-      <h1>Character Counter</h1>
+      <h1>Free Character Counter Online</h1>
       <p class="subtitle">
         Count characters instantly, with and without spaces.
       </p>
@@ -55,7 +55,11 @@
       </div>
 
       <label class="sr-only" for="textInput">Text input</label>
-      <textarea id="textInput" placeholder="Paste or type your text here..." autofocus></textarea>
+      <textarea
+        id="textInput"
+        placeholder="Paste your text here to count characters instantly..."
+        autofocus
+      ></textarea>
 
       <div class="stats-grid single-focus">
         <div class="stat-box featured">
@@ -78,10 +82,16 @@
     </section>
 
     <section class="content-block">
-      <h2>About this tool</h2>
+      <h2>Free Character Counter Tool</h2>
       <p>
-        This free character counter is useful for social posts, titles, meta descriptions,
-        forms, product descriptions, and any text with length limits.
+        This free character counter allows you to count characters with and without spaces instantly.
+        It is perfect for social media posts, meta descriptions, titles, forms, and any content with strict limits.
+      </p>
+      <p>
+        You can also track word count and sentence count at the same time.
+        If you need more detailed text analysis, use our
+        <a href="index.html">Word Counter</a> or
+        <a href="reading-time.html">Reading Time Calculator</a>.
       </p>
     </section>
 
@@ -93,8 +103,12 @@
         <a href="reading-time.html">Reading Time Calculator</a>
       </div>
     </section>
+
+    <footer class="content-block">
+      <p>© 2026 TextTools</p>
+    </footer>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
