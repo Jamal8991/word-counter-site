@@ -17,4 +17,8 @@
     <loc>https://word-counter-site.vercel.app/reading-time.html</loc>
   </url>
 
+  <url>
+    <loc>https://word-counter-site.vercel.app/paragraph-counter.html</loc>
+  </url>
+
 </urlset>
