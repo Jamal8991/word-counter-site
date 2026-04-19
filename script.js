@@ -15,32 +15,33 @@ const longSentenceWarningEl = document.getElementById("longSentenceWarning");
 const topWordsListEl = document.getElementById("topWordsList");
 const sentenceLengthNoteEl = document.getElementById("sentenceLengthNote");
 
+// Common stopwords
 const STOPWORDS = new Set([
-  "a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "from",
-  "has", "have", "he", "her", "his", "i", "if", "in", "is", "it", "its",
-  "me", "my", "of", "on", "or", "our", "she", "so", "that", "the", "their",
-  "them", "there", "they", "this", "to", "was", "we", "were", "will", "with",
-  "you", "your"
+  "a","an","and","are","as","at","be","but","by","for","from",
+  "has","have","he","her","his","i","if","in","is","it","its",
+  "me","my","of","on","or","our","she","so","that","the","their",
+  "them","there","they","this","to","was","we","were","will","with",
+  "you","your"
 ]);
 
 function getWords(text) {
   const trimmed = text.trim();
   if (!trimmed) return [];
-  return trimmed.split(/\s+/).filter(Boolean);
+  return trimmed.split(/\s+/);
 }
 
 function getSentences(text) {
   return text
     .replace(/\n+/g, " ")
     .split(/[.!?]+/)
-    .map(sentence => sentence.trim())
+    .map(s => s.trim())
     .filter(Boolean);
 }
 
 function getParagraphs(text) {
   return text
     .split(/\n+/)
-    .map(paragraph => paragraph.trim())
+    .map(p => p.trim())
     .filter(Boolean);
 }
 
@@ -50,26 +51,26 @@ function formatMinutes(value) {
   return `${value.toFixed(1)} min`;
 }
 
-function cleanWord(rawWord) {
-  return rawWord.toLowerCase().replace(/[^a-z0-9']/gi, "");
+function cleanWord(word) {
+  return word.toLowerCase().replace(/[^a-z0-9']/gi, "");
 }
 
 function getTopWords(words, limit = 6) {
   const counts = {};
 
-  for (const rawWord of words) {
-    const word = cleanWord(rawWord);
-    if (!word || STOPWORDS.has(word)) continue;
+  words.forEach(raw => {
+    const word = cleanWord(raw);
+    if (!word || STOPWORDS.has(word)) return;
     counts[word] = (counts[word] || 0) + 1;
-  }
+  });
 
   return Object.entries(counts)
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .sort((a, b) => b[1] - a[1])
     .slice(0, limit);
 }
 
 function updateStats() {
-  const text = textInput ? textInput.value : "";
+  const text = textInput?.value || "";
 
   const words = getWords(text);
   const sentences = getSentences(text);
@@ -83,9 +84,9 @@ function updateStats() {
 
   const readingTime = wordCount / 200;
   const speakingTime = wordCount / 130;
-  const avgSentenceLength = sentenceCount > 0 ? wordCount / sentenceCount : 0;
+  const avgSentenceLength = sentenceCount ? wordCount / sentenceCount : 0;
 
-  const longSentences = sentences.filter(sentence => getWords(sentence).length > 20);
+  const longSentences = sentences.filter(s => getWords(s).length > 20);
   const topWords = getTopWords(words);
 
   if (wordCountEl) wordCountEl.textContent = wordCount;
@@ -97,6 +98,7 @@ function updateStats() {
   if (speakingTimeEl) speakingTimeEl.textContent = formatMinutes(speakingTime);
   if (avgSentenceLengthEl) avgSentenceLengthEl.textContent = avgSentenceLength.toFixed(1);
 
+  // Long sentence warning
   if (longSentenceWarningEl) {
     if (!text.trim()) {
       longSentenceWarningEl.textContent = "No long sentences detected yet.";
@@ -104,25 +106,24 @@ function updateStats() {
       longSentenceWarningEl.textContent = "Good job. No long sentences detected.";
     } else {
       longSentenceWarningEl.textContent =
-        `You have ${longSentences.length} long sentence${longSentences.length > 1 ? "s" : ""}. Consider shortening ${longSentences.length > 1 ? "them" : "it"}.`;
+        `You have ${longSentences.length} long sentence${longSentences.length > 1 ? "s" : ""}.`;
     }
   }
 
+  // Sentence length note
   if (sentenceLengthNoteEl) {
     if (!text.trim()) {
-      sentenceLengthNoteEl.textContent = "Add some text to see sentence insights.";
+      sentenceLengthNoteEl.textContent = "Add some text to see insights.";
     } else if (avgSentenceLength > 20) {
-      sentenceLengthNoteEl.textContent =
-        "Your average sentence length is high. Shorter sentences are usually easier to read.";
+      sentenceLengthNoteEl.textContent = "Your sentences are quite long.";
     } else if (avgSentenceLength > 14) {
-      sentenceLengthNoteEl.textContent =
-        "Your sentence length looks balanced and reasonably easy to read.";
+      sentenceLengthNoteEl.textContent = "Your sentence length looks balanced.";
     } else {
-      sentenceLengthNoteEl.textContent =
-        "Your sentences are short and easy to scan.";
+      sentenceLengthNoteEl.textContent = "Your sentences are short and easy to read.";
     }
   }
 
+  // Top words
   if (topWordsListEl) {
     topWordsListEl.innerHTML = "";
 
@@ -140,6 +141,7 @@ function updateStats() {
   }
 }
 
+// Event listeners
 if (textInput) {
   textInput.addEventListener("input", updateStats);
   updateStats();
@@ -158,14 +160,12 @@ if (copyBtn && textInput) {
     try {
       await navigator.clipboard.writeText(textInput.value || "");
       copyBtn.textContent = "Copied";
-      setTimeout(() => {
-        copyBtn.textContent = "Copy Text";
-      }, 1200);
     } catch {
       copyBtn.textContent = "Failed";
-      setTimeout(() => {
-        copyBtn.textContent = "Copy Text";
-      }, 1200);
     }
+
+    setTimeout(() => {
+      copyBtn.textContent = "Copy Text";
+    }, 1200);
   });
 }
