@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y97GEP8268"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y97GEP8268"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y97GEP8268');
+  </script>
 
-  gtag('config', 'G-Y97GEP8268');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free Reading Time Calculator | Reading & Speaking Time</title>
+  <title>Free Reading Time Calculator | Estimate Reading & Speaking Time</title>
   <meta
     name="description"
     content="Estimate reading time and speaking time instantly for any text with this fast and free reading time calculator."
@@ -37,7 +37,7 @@
   <main class="container">
     <section class="hero">
       <span class="eyebrow">Free online text tool</span>
-      <h1>Reading Time Calculator</h1>
+      <h1>Free Reading Time Calculator</h1>
       <p class="subtitle">
         Estimate reading and speaking time instantly for any text.
       </p>
@@ -55,7 +55,11 @@
       </div>
 
       <label class="sr-only" for="textInput">Text input</label>
-      <textarea id="textInput" placeholder="Paste or type your text here..." autofocus></textarea>
+      <textarea
+        id="textInput"
+        placeholder="Paste your text here to estimate reading and speaking time..."
+        autofocus
+      ></textarea>
 
       <div class="time-grid reading-focus">
         <div class="time-box featured">
@@ -89,11 +93,17 @@
     </section>
 
     <section class="content-block">
-      <h2>About this tool</h2>
+      <h2>Reading Time Calculator</h2>
       <p>
-        This free reading time calculator estimates how long a text takes to read
-        or speak. It is useful for speeches, presentations, scripts, lessons,
-        blog posts, and study notes.
+        This free reading time calculator helps you estimate how long it takes to read or speak any text.
+        It is useful for blog posts, presentations, speeches, scripts, and study notes.
+      </p>
+      <p>
+        Knowing your reading time helps you optimize content length and audience engagement.
+        You can also use our
+        <a href="index.html">Word Counter</a> or
+        <a href="sentence-counter.html">Sentence Counter</a>
+        for additional text insights.
       </p>
     </section>
 
@@ -105,8 +115,12 @@
         <a href="sentence-counter.html">Sentence Counter</a>
       </div>
     </section>
+
+    <footer class="content-block">
+      <p>© 2026 TextTools</p>
+    </footer>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
