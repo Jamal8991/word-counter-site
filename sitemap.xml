@@ -3,26 +3,32 @@
 
   <url>
     <loc>https://word-counter-site.vercel.app/</loc>
+    <lastmod>2026-04-20</lastmod>
   </url>
 
   <url>
     <loc>https://word-counter-site.vercel.app/character-counter.html</loc>
+    <lastmod>2026-04-20</lastmod>
   </url>
 
   <url>
     <loc>https://word-counter-site.vercel.app/sentence-counter.html</loc>
+    <lastmod>2026-04-20</lastmod>
   </url>
 
   <url>
     <loc>https://word-counter-site.vercel.app/reading-time.html</loc>
+    <lastmod>2026-04-20</lastmod>
   </url>
 
   <url>
     <loc>https://word-counter-site.vercel.app/paragraph-counter.html</loc>
+    <lastmod>2026-04-20</lastmod>
   </url>
 
   <url>
-  <loc>https://word-counter-site.vercel.app/word-frequency-counter.html</loc>
+    <loc>https://word-counter-site.vercel.app/word-frequency-counter.html</loc>
+    <lastmod>2026-04-20</lastmod>
   </url>
-  
+
 </urlset>
