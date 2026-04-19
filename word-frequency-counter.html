@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y97GEP8268"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y97GEP8268');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Frequency Analyzer | Count Word Frequency & Percentage</title>
+  <meta
+    name="description"
+    content="Analyze word frequency instantly. See how often each word appears in your text and what percentage of the total it represents."
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="word-frequency">
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav">
+        <a class="logo" href="index.html">TextTools</a>
+        <div class="nav-links">
+          <a href="index.html">Word Counter</a>
+          <a href="character-counter.html">Character Counter</a>
+          <a href="sentence-counter.html">Sentence Counter</a>
+          <a href="reading-time.html">Reading Time</a>
+          <a href="paragraph-counter.html">Paragraph Counter</a>
+          <a href="word-frequency-counter.html" class="active">Word Frequency</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="eyebrow">Advanced text analysis</span>
+      <h1>Word Frequency Analyzer</h1>
+      <p class="subtitle">
+        See all words in your text, how often they appear, and what share of the text they represent.
+      </p>
+    </section>
+
+    <section class="tool-card">
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <span class="toolbar-label">Paste or type your text</span>
+        </div>
+        <div class="toolbar-right">
+          <button id="copyBtn" class="btn secondary" type="button">Copy Text</button>
+          <button id="clearBtn" class="btn" type="button">Clear</button>
+        </div>
+      </div>
+
+      <label class="sr-only" for="textInput">Text input</label>
+      <textarea
+        id="textInput"
+        placeholder="Paste your text here to analyze word frequency..."
+        autofocus
+      ></textarea>
+
+      <div class="stats-grid single-focus">
+        <div class="stat-box featured">
+          <span class="stat-label">Words</span>
+          <strong id="wordCount">0</strong>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Characters</span>
+          <strong id="charCount">0</strong>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Sentences</span>
+          <strong id="sentenceCount">0</strong>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Paragraphs</span>
+          <strong id="paragraphCount">0</strong>
+        </div>
+      </div>
+
+      <section class="content-block" style="margin-top: 20px;">
+        <h2>Word Frequency Breakdown</h2>
+        <p id="frequencyEmptyState">
+          No data yet. Paste or type some text to see the full word breakdown.
+        </p>
+
+        <div id="frequencyTableWrapper" style="display: none; overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th align="left" style="padding: 10px; border-bottom: 1px solid #e3e8ef;">Word</th>
+                <th align="left" style="padding: 10px; border-bottom: 1px solid #e3e8ef;">Count</th>
+                <th align="left" style="padding: 10px; border-bottom: 1px solid #e3e8ef;">Percentage</th>
+              </tr>
+            </thead>
+            <tbody id="frequencyTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <section class="content-block">
+      <h2>What this tool does</h2>
+      <p>
+        This word frequency analyzer shows how often each word appears in your text.
+        It is useful for writers, students, bloggers, marketers, and anyone who wants
+        to reduce repetition and improve clarity.
+      </p>
+      <p>
+        Unlike a basic word counter, this tool gives you a deeper breakdown of your text.
+        If you also want quick text statistics, use our
+        <a href="index.html">Word Counter</a>,
+        <a href="character-counter.html">Character Counter</a>, or
+        <a href="sentence-counter.html">Sentence Counter</a>.
+      </p>
+    </section>
+
+    <section class="content-block">
+      <h2>More text tools</h2>
+      <div class="internal-links">
+        <a href="index.html">Word Counter</a>
+        <a href="character-counter.html">Character Counter</a>
+        <a href="sentence-counter.html">Sentence Counter</a>
+        <a href="reading-time.html">Reading Time Calculator</a>
+        <a href="paragraph-counter.html">Paragraph Counter</a>
+      </div>
+    </section>
+
+    <footer class="content-block">
+      <p>© 2026 TextTools</p>
+    </footer>
+  </main>
+
+  <script src="script.js" defer></script>
+  <script>
+    const frequencyEmptyState = document.getElementById("frequencyEmptyState");
+    const frequencyTableWrapper = document.getElementById("frequencyTableWrapper");
+    const frequencyTableBody = document.getElementById("frequencyTableBody");
+
+    function cleanFrequencyWord(word) {
+      return word.toLowerCase().replace(/[^a-z0-9']/gi, "");
+    }
+
+    function updateFrequencyTable() {
+      if (!textInput || !frequencyTableBody) return;
+
+      const text = textInput.value.trim();
+      const words = text ? text.split(/\s+/) : [];
+      const cleanedWords = words
+        .map(cleanFrequencyWord)
+        .filter(Boolean);
+
+      const totalWords = cleanedWords.length;
+
+      if (!text || totalWords === 0) {
+        frequencyEmptyState.style.display = "block";
+        frequencyTableWrapper.style.display = "none";
+        frequencyTableBody.innerHTML = "";
+        return;
+      }
+
+      const counts = {};
+      cleanedWords.forEach(word => {
+        counts[word] = (counts[word] || 0) + 1;
+      });
+
+      const sortedWords = Object.entries(counts).sort((a, b) => {
+        if (b[1] !== a[1]) return b[1] - a[1];
+        return a[0].localeCompare(b[0]);
+      });
+
+      frequencyTableBody.innerHTML = "";
+
+      sortedWords.forEach(([word, count]) => {
+        const percentage = ((count / totalWords) * 100).toFixed(1);
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td style="padding: 10px; border-bottom: 1px solid #eef2f7;">${word}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #eef2f7;">${count}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #eef2f7;">${percentage}%</td>
+        `;
+        frequencyTableBody.appendChild(row);
+      });
+
+      frequencyEmptyState.style.display = "none";
+      frequencyTableWrapper.style.display = "block";
+    }
+
+    if (textInput) {
+      textInput.addEventListener("input", updateFrequencyTable);
+      updateFrequencyTable();
+    }
+
+    if (clearBtn && textInput) {
+      clearBtn.addEventListener("click", () => {
+        setTimeout(updateFrequencyTable, 0);
+      });
+    }
+  </script>
+</body>
+</html>
